@@ -51,6 +51,9 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
     
     var isPresentingSearch: Bool = false
     
+
+    var btnSelectAll:UIButton? = nil
+    
     // MARK: - Lifecycle Methods
     
     override open func viewDidLoad() {
@@ -84,8 +87,17 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
             let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(onTouchDoneButton))
             self.navigationItem.rightBarButtonItem = doneButton
             
+            let winSize = UIScreen.main.bounds
+            btnSelectAll = UIButton()
+            btnSelectAll?.setTitle("Select All", for: .normal)
+            btnSelectAll?.setTitleColor(UIColor.blue, for: .normal)
+            btnSelectAll?.addTarget(self, action: #selector(onTouchSelectAll), for: .touchUpInside)
+            btnSelectAll?.frame = CGRect(x:winSize.width/3, y:winSize.height-(winSize.width/6 + 30), width:winSize.width/3, height:winSize.width/6)
+            
+            self.view.addSubview(btnSelectAll!)
         }
     }
+    
     
     fileprivate func registerContactCell() {
         
@@ -270,9 +282,9 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
 			contact = EPContact(contact: contactsForSection[(indexPath as NSIndexPath).row])
         }
 		
-        if multiSelectEnabled  && selectedContacts.contains(where: { $0.contactId == contact.contactId }) {
+//        if multiSelectEnabled  && selectedContacts.contains(where: { $0.contactId == contact.contactId }) {
             cell.accessoryType = UITableViewCellAccessoryType.checkmark
-        }
+//        }
 		
         cell.updateContactsinUI(contact, indexPath: indexPath, subtitleType: subtitleCellValue)
         return cell
@@ -342,6 +354,10 @@ open class EPContactsPicker: UITableViewController, UISearchResultsUpdating, UIS
                 self.contactDelegate?.epContactPicker(self, didSelectMultipleContacts: self.selectedContacts)
             }
         })
+    }
+    func onTouchSelectAll(){
+        
+        
     }
     
     // MARK: - Search Actions
