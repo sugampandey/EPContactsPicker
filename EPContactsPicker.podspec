@@ -19,9 +19,10 @@ DESC
   s.requires_arc = true
   s.source_files = 'Pods/EPContactsPicker/*'
   s.frameworks = 'Contacts', 'ContactsUI'
-  s.resources        = ["Pods/EPContactCell.xib"]
+  s.resources        = ["Pods/EPContactCell.xib", "Pods/Resources/*.png"]
   s.resource_bundles = {
-    'EPContactsPicker' => ['Pods/**/*.xib']
+    'EPContactsPicker' => ['Pods/**/*.xib'],
+    'EPContactsPicker' => ['Pods/**/*.png']
     }
 
 end
