@@ -113,7 +113,7 @@ open class EPContactsPicker: UIViewController, UISearchResultsUpdating, UISearch
         let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         sendInvitesButton = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector(onTouchSendInvitesButton))
         updateSendInvitesButtonTitle()
-        let attributes = [NSFontAttributeName:EPGlobalConstants.SendInvitesButton.titleFont!]
+        let attributes = [NSAttributedStringKey.font:EPGlobalConstants.SendInvitesButton.titleFont!]
         sendInvitesButton!.setTitleTextAttributes(attributes, for: [])
         toolBar.items = [space, sendInvitesButton!, space]
         toolBar.backgroundColor = UIColor.white
@@ -408,19 +408,19 @@ open class EPContactsPicker: UIViewController, UISearchResultsUpdating, UISearch
     
     // MARK: - Button Actions
     
-    func onTouchCancelButton() {
+    @objc func onTouchCancelButton() {
         dismiss(animated: true, completion: {
             self.contactDelegate?.epContactPicker(self, didCancel: NSError(domain: "EPContactPickerErrorDomain", code: 2, userInfo: [ NSLocalizedDescriptionKey: "User Canceled Selection"]))
         })
     }
     
-    func onTouchSendInvitesButton() {
+    @objc func onTouchSendInvitesButton() {
         dismiss(animated: true, completion: {
             self.contactDelegate?.epContactPicker(self, didSelectMultipleContacts: self.selectedContacts)
         })
     }
     
-    func onTouchSelectionButton() {
+    @objc func onTouchSelectionButton() {
         if totalNumberOfLoadedContacts > selectedContacts.count {
             selectAllContacts()
         }else{
@@ -435,7 +435,7 @@ open class EPContactsPicker: UIViewController, UISearchResultsUpdating, UISearch
         if let searchText = resultSearchController.searchBar.text , searchController.isActive {
             
             var predicate: NSPredicate?
-            if searchText.characters.count > 0 {
+            if searchText.count > 0 {
                 predicate = CNContact.predicateForContacts(matchingName: searchText)
                 let store = CNContactStore()
                 do {

@@ -41,7 +41,7 @@ struct EPGlobalConstants {
 //MARK: "Invite" button constants
     struct SendInvitesButton {
         static let height:CGFloat = 44
-        static let titleColor = UIColor.init(colorLiteralRed: 0, green: 122.0/255.0, blue:1.0, alpha:1.0)
+        static let titleColor = #colorLiteral(red: 0, green: 0.4509803922, blue: 1, alpha: 1)
         static let titleFont = UIFont(name: "HelveticaNeue-Medium", size: 16.0)
     }
 //MARK: "SelectContacts" button constants
